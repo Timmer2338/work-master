@@ -105,7 +105,7 @@ Page({
             case "200":
 
               var used_time_bucket = new Array();
-              var time_bucket = ['8:00-12:00', '12:00-16:00', '16:00-18:00', '18:00-22:00'];
+              var time_bucket = ['8:20-10:00', '10:00-12:30', '12:30-15:00', '15:00-17:45', '17:45-20:00','20:00-22:00'];
 
               for (var i = 0; i < res.data.data.length; i++) {
                 used_time_bucket[i] = res.data.data[i].timeBucket;
