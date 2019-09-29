@@ -259,55 +259,55 @@ Page({
     //开发测试
     // console.log('form页面onUnload');
 
-    wx.request({
+    // wx.request({
 
-      url: app.globalData.apiUrl + '/localearea/occupy',
+    //   url: app.globalData.apiUrl + '/localearea/occupy',
 
-      method: 'PUT',
+    //   method: 'PUT',
 
-      data: {
-        localeAreaId: this.data.locale_area_id,
-        status: 'CANCEL'
-      },
+    //   data: {
+    //     localeAreaId: this.data.locale_area_id,
+    //     status: 'CANCEL'
+    //   },
 
-      header: {
-        'Authorization': wx.getStorageSync('server_token'),
-        'content-type': 'application/x-www-form-urlencoded'
-      },
+    //   header: {
+    //     'Authorization': wx.getStorageSync('server_token'),
+    //     'content-type': 'application/x-www-form-urlencoded'
+    //   },
       
       
-      success: function (res) {
+    //   success: function (res) {
 
-        //开发测试
-        console.log('取消场地传回的数据',res.data);
+    //     //开发测试
+    //     console.log('取消场地传回的数据',res.data);
 
-        switch (res.data.errorCode) {
-          case "200":
+    //     switch (res.data.errorCode) {
+    //       case "200":
 
-            //开发测试
-            console.log(res.data.errorMsg);
+    //         //开发测试
+    //         console.log(res.data.errorMsg);
 
-            break;
-          case "400":
-            app.warning(res.data.errorMsg);
-            break;
-          case "401":
-            app.warning(res.data.errorMsg);
-            break;
-          default:
-            app.warning(res.data.errorMsg);
-            break;
-        }
+    //         break;
+    //       case "400":
+    //         app.warning(res.data.errorMsg);
+    //         break;
+    //       case "401":
+    //         app.warning(res.data.errorMsg);
+    //         break;
+    //       default:
+    //         app.warning(res.data.errorMsg);
+    //         break;
+    //     }
 
 
 
-      },
+    //   },
 
-      fail: function (res) {
-        app.warning('服务器错误');
-      },
+    //   fail: function (res) {
+    //     app.warning('服务器错误');
+    //   },
 
-    })
+    // })
 
   },
 

@@ -119,6 +119,7 @@ Page({
     let time_bucket = wx.getStorageSync('time_bucket');
     let locale_id = wx.getStorageSync('choosed_locale_id');
     let time_date = wx.getStorageSync('time_date');
+    wx.removeStorageSync('locale_area_id');
 
     this.setData({
       time_bucket: time_bucket,
@@ -146,7 +147,55 @@ Page({
 
     //开发测试
     // console.log('create2页面onShow');
-    
+    wx.request({
+
+      url: app.globalData.apiUrl + '/localearea/occupy',
+
+      method: 'PUT',
+
+      data: {
+        localeAreaId: wx.getStorageSync('locale_area_id'),
+        status: 'CANCEL'
+      },
+
+      header: {
+        'Authorization': wx.getStorageSync('server_token'),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+
+
+      success: function (res) {
+
+        //开发测试
+        console.log('取消场地传回的数据', res.data);
+
+        switch (res.data.errorCode) {
+          case "200":
+
+            //开发测试
+            console.log(res.data.errorMsg);
+
+            break;
+          // case "400":
+          //   app.warning(res.data.errorMsg);
+          //   break;
+          // case "401":
+          //   app.warning(res.data.errorMsg);
+          //   break;
+          // default:
+          //   app.warning(res.data.errorMsg);
+          //   break;
+        }
+
+
+
+      },
+
+      // fail: function (res) {
+      //   app.warning('服务器错误');
+      // },
+
+    })
 
   },
 
