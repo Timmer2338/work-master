@@ -117,6 +117,7 @@ Page({
     console.log('org长度',this.data.org_length);
   },
 
+  //用途
   usageinput: function (e) {
     let usage = e.detail.value;
     let usage_length = usage.length;
@@ -130,6 +131,7 @@ Page({
     console.log('usage长度:', this.data.usage_length);
   },
 
+  //备注
   remarkinput: function (e) {
     let remark = e.detail.value;
     let remark_length = remark.length;
@@ -145,7 +147,7 @@ Page({
 
   submit: function () {
 
-    if (this.data.tel == '' || this.data.usage == '' || this.data.remark == ''||this.data.org == '') {
+    if (this.data.tel == '' || this.data.usage == '' || this.data.org == '') {
 
       app.warning('请输入完整信息!');
 

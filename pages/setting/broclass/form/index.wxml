@@ -10,9 +10,9 @@
     
     <text class="text">1、C501、C505及湖畔运动馆实行预约借用制度\n</text>
     <text class="text">2、借用后请保持借用场地的整洁\n</text>
-    <text class="text">3、场地借用须上传团委审批佐证材料，未上传视\n</text>
+    <text class="text">3、场地借用须上传审批佐证材料，未上传视\n</text>
     <text class="text">为未获批准，不予通过审核\n</text>
-    <text class="text">4、如有疑问可联系：格致楼232 孙老师\n\n</text>
+    <text class="text">4、如有疑问可联系：格致楼229 苏老师\n\n</text>
 
   </view>
 
@@ -58,7 +58,6 @@
       <view id="line4"></view>
         
       <text class="title">备注</text>
-      <text class="star">*\n</text>
       <text class="detail">如有需要请写备注{{remark_length}}/100</text>
         
       <textarea cursor-spacing='30' value='{{remark}}' bindinput='remarkinput' maxlength='100'></textarea>
