@@ -1,7 +1,4 @@
-// pages/home/succeed/detail/index.js
-
-const app = getApp();
-
+// pages/setting/broclass/leaguesearch/cancel/detail/index.js
 Page({
 
   /**

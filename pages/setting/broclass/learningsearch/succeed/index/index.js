@@ -1,29 +1,33 @@
-// pages/home/succeed/detail/index.js
-
-const app = getApp();
-
+// pages/setting/broclass/learningsearch/succeed/index/index.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    queryBean: []
+    succeed_data: []
+  },
+
+  userchoose: function (e) {
+
+    var that = this;
+
+    var index = e.currentTarget.dataset.index;
+
+    var queryBean = JSON.stringify(that.data.succeed_data[index]);
+
+    wx.navigateTo({
+      url: '../detail/index?queryBean=' + queryBean,
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this
-
-    var queryBean = JSON.parse(options.queryBean)
-    that.setData({
-      queryBean: queryBean
+    this.setData({
+      succeed_data: JSON.parse(options.succeed_data)
     })
-
-    //开发测试
-    console.log(that.data.queryBean)
   },
 
   /**

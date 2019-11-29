@@ -104,7 +104,7 @@ Page({
   },
 
   //学工
-  learning_search: function() {
+  learning_check: function() {
 
     //页面跳转
     wx.navigateTo({
@@ -114,11 +114,27 @@ Page({
   },
 
   //团学
-  league_search:function(){
+  league_check:function(){
 
     //页面跳转
     wx.navigateTo({
       url: '../leaguecheck/index/index'
+    })
+  },
+
+  //团学历史记录查询
+  league_search:function(){
+    //页面跳转
+    wx.navigateTo({
+      url: '../leaguesearch/index/index'
+    })
+  },
+
+  //学工历史记录查询
+  learning_search:function(){
+    //页面跳转
+    wx.navigateTo({
+      url: '../learningsearch/index/index'
     })
   },
   /**

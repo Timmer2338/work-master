@@ -1,4 +1,4 @@
-// pages/home/succeed/detail/index.js
+// pages/setting/broclass/leaguesearch/cancel/index/index.js
 
 const app = getApp();
 
@@ -8,22 +8,29 @@ Page({
    * 页面的初始数据
    */
   data: {
-    queryBean: []
+    cancel_data: []
+  },
+
+  userchoose: function (e) {
+
+    var that = this;
+
+    var index = e.currentTarget.dataset.index;
+
+    var queryBean = JSON.stringify(that.data.cancel_data[index]);
+
+    wx.navigateTo({
+      url: '../detail/index?queryBean=' + queryBean,
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this
-
-    var queryBean = JSON.parse(options.queryBean)
-    that.setData({
-      queryBean: queryBean
+    this.setData({
+      cancel_data: JSON.parse(options.cancel_data)
     })
-
-    //开发测试
-    console.log(that.data.queryBean)
   },
 
   /**

@@ -1,4 +1,4 @@
-// pages/home/succeed/detail/index.js
+// pages/setting/broclass/learningsearch/succeed/detail/index.js
 
 const app = getApp();
 
