@@ -8,7 +8,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    queryBean : []
+    queryBean : [],
+    isMaskWindowShow: false,
+  maskWindowList: ['申请理由不充分', '教室临时占用', '其他（输入）', '没有原因'],
+  selectIndex: -1,
+  isMaskWindowInputShow: false,
+  maskWindowInputValue: ""
   },
 
   pass: function() {
@@ -78,71 +83,132 @@ Page({
     });
   },
 
-  deny: function() {
+  deny: function(text) {
 
-    var that = this;
+    this.showMaskWindow();
+  },
 
-    wx.showModal({
-      title: '注意',
-      content: '确定要退回此申请吗?',
-      success(res) {
-        if(res.confirm) {
-          wx.request({
+  denysend: function(text) {
+    let that = this;
+    wx.request({
 
-            url: app.globalData.apiUrl + '/localeapply/applyadmin',
+      url: app.globalData.apiUrl + '/localeapply/applyadmin',
 
-            method: 'PUT',
+      method: 'PUT',
 
-            data: {
-              localeApplyId: that.data.queryBean.localeApplyId,
-              status: 'CANCEL'
-            },
+      data: {
+        localeApplyId: that.data.queryBean.localeApplyId,
+        status: 'CANCEL',
+        failureMessage: text
+      },
 
-            header: {
-              'Authorization': wx.getStorageSync('server_token'),
-              'Content-Type': 'application/x-www-form-urlencoded'
-            },
+      header: {
+        'Authorization': wx.getStorageSync('server_token'),
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
 
-            success: function (res) {
+      success: function (res) {
 
-              //开发测试
-              console.log('学工否决场地申请传回的数据', res.data);
+        //开发测试
+        console.log('学工否决场地申请传回的数据', res.data);
 
-              switch (res.data.errorCode) {
-                case "200":
-                  wx.showModal({
-                    title: '提示',
-                    content: '已否决',
-                    showCancel: false,
-                    success(res) {
-                      if (res.confirm) {
-                        wx.navigateBack({
-                          delta: 1
-                        })
-                      }
-                    }
-                  });
-                  break;
-                case "400":
-                  app.warning(res.data.errorMsg);
-                  break;
-                case "401":
-                  app.warning(res.data.errorMsg);
-                  break;
-                default:
-                  app.warning(res.data.errorMsg);
-                  break;
+        switch (res.data.errorCode) {
+          case "200":
+            wx.showModal({
+              title: '提示',
+              content: '已否决',
+              showCancel: false,
+              success(res) {
+                if (res.confirm) {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                }
               }
-            },
-
-            fail: function (res) {
-              app.warning('服务器错误');
-            }
-          });
+            });
+            break;
+          case "400":
+            app.warning(res.data.errorMsg);
+            break;
+          case "401":
+            app.warning(res.data.errorMsg);
+            break;
+          default:
+            app.warning(res.data.errorMsg);
+            break;
         }
+      },
+
+      fail: function (res) {
+        app.warning('服务器错误');
       }
     });
   },
+
+  //弹框以外区域点击
+maskWindowBgClick: function (e) {
+  this.dismissMaskWindow();
+},
+
+//弹窗区域点击事件
+clickTap: function (e) {
+
+},
+
+//切换选择项事件
+maskWindowTableSelect: function (e) {
+  var index = e.currentTarget.dataset.windowIndex;
+  this.setData({
+    selectIndex: e.currentTarget.dataset.windowIndex,
+    isMaskWindowInputShow: index == 2
+  })
+},
+
+//输入框输入绑定事件
+maskWindowInput: function (e) {
+  var value = e.detail.value;
+  this.setData({
+    maskWindowInputValue: value
+  })
+},
+
+maskWindowOk: function (e) {
+  var index = this.data.selectIndex;
+  var text;
+  if (index >= 0 && index < 2) {
+    text= this.data.maskWindowList[index];
+  } else if (index == 2) {
+    text = this.data.maskWindowInputValue;
+  } else {
+    text = "没有原因";
+  }
+  this.denysend(text); // 真正的取消操作
+  this.dismissMaskWindow();
+},
+
+maskWindowCancel: function (e) {
+  this.dismissMaskWindow();
+},
+
+// 显示蒙版弹窗
+showMaskWindow: function () {
+  this.setData({
+    isMaskWindowShow: true,
+    selectIndex: -1,
+    isMaskWindowInputShow: false,
+    maskWindowInputValue: ""
+  })
+},
+
+// 隐藏蒙版窗体
+dismissMaskWindow: function () {
+  this.setData({
+    isMaskWindowShow: false,
+    selectIndex: -1,
+    isMaskWindowInputShow: false,
+    maskWindowInputValue: ""
+  })
+},
 
   /**
    * 生命周期函数--监听页面加载
@@ -210,3 +276,4 @@ Page({
 
   }
 })
+ 

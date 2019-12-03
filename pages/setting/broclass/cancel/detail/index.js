@@ -8,7 +8,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    queryBean: []
+    queryBean: [],
+    failureMsg: [],
+    failureTime: [],
+    failureReason: ''
   },
 
   /**
@@ -19,11 +22,26 @@ Page({
 
     var queryBean = JSON.parse(options.queryBean)
     that.setData({
-      queryBean: queryBean
+      queryBean: queryBean,
+      failureMsg: queryBean.failureMessage
+    })
+
+    var failureTime = '';
+    var failureReason = '';
+    for(var i=0;i<7;i++) {
+      failureTime+=that.data.failureMsg[i];
+    }
+    for(i=8;i<that.data.failureMsg.length;i++) {
+      failureReason+=that.data.failureMsg[i];
+    }
+
+    that.setData({
+      failureTime: failureTime,
+      failureReason: failureReason
     })
 
     //开发测试
-    console.log(that.data.queryBean);
+    console.log(that.data.queryBean,that.data.failureTime,that.data.failureReason);
   },
 
   /**
